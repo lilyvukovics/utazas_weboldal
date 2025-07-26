@@ -130,6 +130,14 @@
             line-height: 1.4;
         }
 
+        #popup-utazas-nev {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: #0077cc;  /* vagy #333, ha visszafogottabb kell */
+            margin: 10px 0 20px 0;
+        }
+
     </style>
 </head>
 <body>
