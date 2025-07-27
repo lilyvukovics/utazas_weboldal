@@ -199,12 +199,14 @@ function openForm(utazasId, utazasNev) {
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('popup-utazas-nev').textContent = utazasNev;
     document.getElementById('detailsPopup').style.display = 'none';
+    document.body.style.overflow = 'hidden'; // Letiltja a scrollolást
     lastDetailsId = null;
 }
 
 function closeForm() {
     document.getElementById('popupForm').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Visszaállítja a scrollolást
 }
 
 function showDetailsPopup(event, utazas) {
