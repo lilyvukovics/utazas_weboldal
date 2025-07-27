@@ -138,12 +138,29 @@
             margin: 10px 0 20px 0;
         }
 
+        /* Blur háttér overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(173, 216, 230, 0.7); /* világos kék átlátszó */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
     </style>
 </head>
 <body>
 
 <h1>Elérhető utazások</h1>
 <div class="container" id="utazasok-container"></div>
+
+<!-- Blur háttér overlay -->
+<div id="overlay" onclick="closeForm()"></div>
 
 <!-- Jelentkezés popup -->
 <div id="popupForm">
@@ -178,6 +195,7 @@ let lastDetailsId = null;
 function openForm(utazasId, utazasNev) {
     document.getElementById('popup-utazas-id').value = utazasId;
     document.getElementById('popupForm').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
     document.getElementById('popup-utazas-nev').textContent = utazasNev;
     document.getElementById('detailsPopup').style.display = 'none';
     lastDetailsId = null;
@@ -185,6 +203,7 @@ function openForm(utazasId, utazasNev) {
 
 function closeForm() {
     document.getElementById('popupForm').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
 }
 
 function showDetailsPopup(event, utazas) {
