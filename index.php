@@ -64,7 +64,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 40px 30px 50px 30px; /* felül 40px, alul 50px */
+            padding: 40px 30px 40px 30px;
             border-radius: 16px;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
             width: 360px;
@@ -89,6 +89,8 @@
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 14px;
+            box-sizing: border-box;
+            width: 100%;
         }
 
         #popupForm button {
@@ -138,12 +140,28 @@
             margin: 10px 0 20px 0;
         }
 
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(173, 216, 230, 0.7); /* világos kék átlátszó */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
     </style>
 </head>
 <body>
 
 <h1>Elérhető utazások</h1>
 <div class="container" id="utazasok-container"></div>
+
+<!-- Blur háttér overlay -->
+<div id="overlay" onclick="closeForm()"></div>
 
 <!-- Jelentkezés popup -->
 <div id="popupForm">
@@ -178,6 +196,7 @@ let lastDetailsId = null;
 function openForm(utazasId, utazasNev) {
     document.getElementById('popup-utazas-id').value = utazasId;
     document.getElementById('popupForm').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
     document.getElementById('popup-utazas-nev').textContent = utazasNev;
     document.getElementById('detailsPopup').style.display = 'none';
     lastDetailsId = null;
@@ -185,6 +204,7 @@ function openForm(utazasId, utazasNev) {
 
 function closeForm() {
     document.getElementById('popupForm').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
 }
 
 function showDetailsPopup(event, utazas) {
