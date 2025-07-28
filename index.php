@@ -152,11 +152,182 @@
             z-index: 999;
         }
 
+        /* Szűrő panel */
+        .filter-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px auto 40px auto;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-title {
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 180px;
+        }
+
+        .filter-group label {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .price-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .price-range input {
+            width: 120px;
+        }
+
+        .price-range span {
+            color: white;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-btn.apply {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            color: white;
+        }
+
+        .filter-btn.apply:hover {
+            background: linear-gradient(135deg, #0083b0 0%, #006080 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-btn.reset {
+            background: rgba(255, 255, 255, 0.9);
+            color: #666;
+        }
+
+        .filter-btn.reset:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                min-width: auto;
+            }
+            
+            .price-range {
+                justify-content: space-between;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+
     </style>
 </head>
 <body>
 
 <h1>Elérhető utazások</h1>
+
+<!-- Szűrő panel -->
+<div class="filter-panel">
+    <div class="filter-title">Szűrés</div>
+    <div class="filter-row">
+        <div class="filter-group">
+            <label for="filter-helyszin">Helyszín</label>
+            <select id="filter-helyszin">
+                <option value="">Minden helyszín</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="filter-indulas">Indulási helyszín</label>
+            <select id="filter-indulas">
+                <option value="">Minden indulási hely</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label>Ár</label>
+            <div class="price-range">
+                <input type="number" id="filter-ar-min" placeholder="Min Ft" min="0" step="10000">
+                <span>-</span>
+                <input type="number" id="filter-ar-max" placeholder="Max Ft" min="0" step="10000">
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <div class="filter-buttons">
+                <button class="filter-btn apply" onclick="applyFilters()">Szűrés</button>
+                <button class="filter-btn reset" onclick="resetFilters()">Törlés</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container" id="utazasok-container"></div>
 
 <!-- Blur háttér overlay -->
@@ -191,6 +362,7 @@
 
 <script>
 let lastDetailsId = null;
+let allUtazasok = []; // Összes utazás tárolása a szűréshez
 
 function openForm(utazasId, utazasNev) {
     document.getElementById('popup-utazas-id').value = utazasId;
@@ -243,25 +415,88 @@ window.addEventListener("click", function(e) {
     }
 });
 
+// Szűrő funkciók
+function populateFilterOptions() {
+    const helyszinSet = new Set();
+    const indulasSet = new Set();
+    
+    allUtazasok.forEach(utazas => {
+        if (utazas.desztinacio) helyszinSet.add(utazas.desztinacio);
+        if (utazas.indulasi_helyszin) indulasSet.add(utazas.indulasi_helyszin);
+    });
+    
+    // Helyszín dropdown feltöltése
+    const helyszinSelect = document.getElementById('filter-helyszin');
+    helyszinSelect.innerHTML = '<option value="">Minden helyszín</option>';
+    [...helyszinSet].sort().forEach(helyszin => {
+        helyszinSelect.innerHTML += `<option value="${helyszin}">${helyszin}</option>`;
+    });
+    
+    // Indulási helyszín dropdown feltöltése
+    const indulasSelect = document.getElementById('filter-indulas');
+    indulasSelect.innerHTML = '<option value="">Minden indulási hely</option>';
+    [...indulasSet].sort().forEach(indulas => {
+        indulasSelect.innerHTML += `<option value="${indulas}">${indulas}</option>`;
+    });
+}
+
+function applyFilters() {
+    const helyszinFilter = document.getElementById('filter-helyszin').value;
+    const indulasFilter = document.getElementById('filter-indulas').value;
+    const arMinFilter = parseInt(document.getElementById('filter-ar-min').value) || 0;
+    const arMaxFilter = parseInt(document.getElementById('filter-ar-max').value) || Infinity;
+    
+    const filteredUtazasok = allUtazasok.filter(utazas => {
+        const helyszinMatch = !helyszinFilter || utazas.desztinacio === helyszinFilter;
+        const indulasMatch = !indulasFilter || utazas.indulasi_helyszin === indulasFilter;
+        const arMatch = utazas.ar >= arMinFilter && utazas.ar <= arMaxFilter;
+        
+        return helyszinMatch && indulasMatch && arMatch;
+    });
+    
+    displayUtazasok(filteredUtazasok);
+}
+
+function resetFilters() {
+    document.getElementById('filter-helyszin').value = '';
+    document.getElementById('filter-indulas').value = '';
+    document.getElementById('filter-ar-min').value = '';
+    document.getElementById('filter-ar-max').value = '';
+    displayUtazasok(allUtazasok);
+}
+
+function displayUtazasok(utazasok) {
+    const container = document.getElementById('utazasok-container');
+    container.innerHTML = '';
+    
+    if (utazasok.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666; font-size: 18px; margin: 40px 0;">Nincs a szűrési feltételeknek megfelelő utazás.</p>';
+        return;
+    }
+    
+    utazasok.forEach(utazas => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+            <img src="kepek/${utazas.boritokep}" alt="borítókép">
+            <h3>${utazas.utazas_elnevezese}</h3>
+            <p><strong>Indulás:</strong> ${utazas.utazas_ideje}</p>
+            <p><strong>Helyszín:</strong> ${utazas.desztinacio}</p>
+            <p><strong>Ár:</strong> ${utazas.ar} Ft</p>
+            <a class="btn" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
+            <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
+        `;
+        container.appendChild(div);
+    });
+}
+
 // Betöltjük az utazásokat
 fetch('get-utazasok.php')
     .then(response => response.json())
     .then(data => {
-        const container = document.getElementById('utazasok-container');
-        data.forEach(utazas => {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `
-                <img src="kepek/${utazas.boritokep}" alt="borítókép">
-                <h3>${utazas.utazas_elnevezese}</h3>
-                <p><strong>Indulás:</strong> ${utazas.utazas_ideje}</p>
-                <p><strong>Helyszín:</strong> ${utazas.desztinacio}</p>
-                <p><strong>Ár:</strong> ${utazas.ar} Ft</p>
-                <a class="btn" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
-                <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
-            `;
-            container.appendChild(div);
-        });
+        allUtazasok = data; // Összes utazás eltárolása
+        populateFilterOptions(); // Szűrő opciók feltöltése
+        displayUtazasok(allUtazasok); // Összes utazás megjelenítése
     });
 </script>
 
