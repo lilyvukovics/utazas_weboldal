@@ -2,6 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elérhető utazások</title>
     <style>
         body {
@@ -267,22 +268,254 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
 
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .container {
+                justify-content: center;
+                padding: 0 20px;
+            }
+            
+            .filter-panel {
+                margin: 20px 20px 40px 20px;
+                padding: 25px;
+            }
+        }
+
         @media (max-width: 768px) {
+            body {
+                padding: 0 10px;
+            }
+            
+            h1 {
+                text-align: center;
+                font-size: 28px;
+                margin: 20px 0;
+            }
+            
+            .filter-panel {
+                margin: 15px 10px 30px 10px;
+                padding: 20px 15px;
+                border-radius: 15px;
+            }
+            
+            .filter-title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            
             .filter-row {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 15px;
             }
             
             .filter-group {
                 min-width: auto;
             }
             
+            .filter-group label {
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+            
+            .filter-group select,
+            .filter-group input {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            
             .price-range {
                 justify-content: space-between;
+                gap: 8px;
+            }
+            
+            .price-range input {
+                width: calc(50% - 15px);
+                min-width: 100px;
             }
             
             .filter-buttons {
                 justify-content: center;
+                gap: 8px;
+                margin-top: 5px;
+            }
+            
+            .filter-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                flex: 1;
+                max-width: 120px;
+            }
+            
+            .container {
+                justify-content: center;
+                gap: 15px;
+                padding: 0 5px;
+            }
+            
+            .card {
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .card img {
+                height: 200px;
+            }
+            
+            .card h3 {
+                font-size: 18px;
+            }
+            
+            .card p {
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 13px;
+                margin: 4px 4px 0 0;
+            }
+            
+            #popupForm {
+                width: calc(100vw - 40px);
+                max-width: 350px;
+                padding: 30px 20px 40px 20px;
+                margin: 0 20px;
+            }
+            
+            #popupForm h3 {
+                font-size: 18px;
+            }
+            
+            #popupForm input[type="text"],
+            #popupForm input[type="email"] {
+                padding: 8px 10px;
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+            
+            #popupForm button {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+            
+            #popupForm p {
+                font-size: 0.75em;
+                margin-top: 12px;
+            }
+            
+            #popup-utazas-nev {
+                font-size: 16px;
+                margin: 8px 0 15px 0;
+            }
+            
+            #detailsPopup {
+                width: calc(100vw - 40px);
+                max-width: 300px;
+                padding: 12px;
+                font-size: 13px;
+                left: 20px !important;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+                margin: 15px 0;
+            }
+            
+            .filter-panel {
+                margin: 10px 5px 25px 5px;
+                padding: 15px 10px;
+            }
+            
+            .filter-title {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .filter-group select,
+            .filter-group input {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+            
+            .price-range input {
+                width: calc(45% - 5px);
+                min-width: 80px;
+            }
+            
+            .card {
+                max-width: 100%;
+                padding: 8px;
+            }
+            
+            .card img {
+                height: 180px;
+            }
+            
+            .card h3 {
+                font-size: 16px;
+                margin: 8px 0 4px;
+            }
+            
+            .card p {
+                font-size: 13px;
+                margin: 3px 0;
+            }
+            
+            .btn {
+                padding: 5px 8px;
+                font-size: 12px;
+                margin: 3px 3px 0 0;
+            }
+            
+            #popupForm {
+                width: calc(100vw - 20px);
+                max-width: none;
+                padding: 20px 15px 30px 15px;
+                margin: 0 10px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                gap: 18px;
+                padding: 0 15px;
+            }
+            
+            .card {
+                width: calc(50% - 9px);
+                max-width: 320px;
+            }
+            
+            .filter-panel {
+                padding: 28px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .container {
+                justify-content: flex-start;
+                padding: 0 20px;
+            }
+            
+            .card {
+                width: calc(33.333% - 14px);
+                max-width: 300px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .container {
+                justify-content: center;
+            }
+            
+            .card {
+                width: calc(25% - 15px);
+                max-width: 300px;
             }
         }
 
