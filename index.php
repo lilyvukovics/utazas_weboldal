@@ -531,7 +531,7 @@
     <div class="filter-row">
         <div class="filter-group">
             <label for="filter-helyszin">Helyszín</label>
-            <select id="filter-helyszin">
+            <select id="filter-helyszin" onchange="updateIndulasOptions()">
                 <option value="">Minden helyszín</option>
             </select>
         </div>
@@ -651,11 +651,9 @@ window.addEventListener("click", function(e) {
 // Szűrő funkciók
 function populateFilterOptions() {
     const helyszinSet = new Set();
-    const indulasSet = new Set();
     
     allUtazasok.forEach(utazas => {
         if (utazas.desztinacio) helyszinSet.add(utazas.desztinacio);
-        if (utazas.indulasi_helyszin) indulasSet.add(utazas.indulasi_helyszin);
     });
     
     // Helyszín dropdown feltöltése
@@ -665,12 +663,42 @@ function populateFilterOptions() {
         helyszinSelect.innerHTML += `<option value="${helyszin}">${helyszin}</option>`;
     });
     
-    // Indulási helyszín dropdown feltöltése
+    // Indulási helyszín dropdown feltöltése (összes opcióval kezdve)
+    updateIndulasOptions();
+}
+
+function updateIndulasOptions() {
+    const selectedHelyszin = document.getElementById('filter-helyszin').value;
     const indulasSelect = document.getElementById('filter-indulas');
+    const currentIndulasValue = indulasSelect.value; // Jelenlegi kiválasztott érték mentése
+    
+    let availableIndulasok = new Set();
+    
+    if (selectedHelyszin === '') {
+        // Ha nincs helyszín kiválasztva, minden indulási hely elérhető
+        allUtazasok.forEach(utazas => {
+            if (utazas.indulasi_helyszin) availableIndulasok.add(utazas.indulasi_helyszin);
+        });
+    } else {
+        // Ha van kiválasztott helyszín, csak az ahhoz tartozó indulási helyek
+        allUtazasok.forEach(utazas => {
+            if (utazas.desztinacio === selectedHelyszin && utazas.indulasi_helyszin) {
+                availableIndulasok.add(utazas.indulasi_helyszin);
+            }
+        });
+    }
+    
+    // Indulási helyszín dropdown újraépítése
     indulasSelect.innerHTML = '<option value="">Minden indulási hely</option>';
-    [...indulasSet].sort().forEach(indulas => {
-        indulasSelect.innerHTML += `<option value="${indulas}">${indulas}</option>`;
+    [...availableIndulasok].sort().forEach(indulas => {
+        const isSelected = currentIndulasValue === indulas ? 'selected' : '';
+        indulasSelect.innerHTML += `<option value="${indulas}" ${isSelected}>${indulas}</option>`;
     });
+    
+    // Ha a korábban kiválasztott indulási hely már nem elérhető, töröljük a kiválasztást
+    if (currentIndulasValue && !availableIndulasok.has(currentIndulasValue)) {
+        indulasSelect.value = '';
+    }
 }
 
 function applyFilters() {
@@ -695,6 +723,7 @@ function resetFilters() {
     document.getElementById('filter-indulas').value = '';
     document.getElementById('filter-ar-min').value = '';
     document.getElementById('filter-ar-max').value = '';
+    updateIndulasOptions(); // Indulási helyszínek visszaállítása
     displayUtazasok(allUtazasok);
 }
 
