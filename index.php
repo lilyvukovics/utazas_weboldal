@@ -11,38 +11,148 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
+            padding: 20px;
         }
+        
         .card {
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            width: 320px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+            border: none;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 2px 2px 6px #ccc;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
             position: relative;
-            padding: 10px;
+            padding: 0;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .card-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
         .card img {
             width: 100%;
-            height: 180px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
+        
+        .card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
         .card h3 {
-            margin: 10px 0 5px;
+            margin: 0 0 12px 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            line-height: 1.3;
         }
-        .btn {
-            margin: 6px 6px 0 0;
-            display: inline-block;
+        
+        .card-info {
+            margin-bottom: 15px;
+        }
+        
+        .card-info p {
+            margin: 6px 0;
+            font-size: 14px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-info strong {
+            color: #667eea;
+            font-weight: 600;
+            min-width: 60px;
+        }
+        
+        .card-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 12px 0 20px 0;
             padding: 8px 12px;
-            background-color: dodgerblue;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            cursor: pointer;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 10px;
+            text-align: center;
         }
+        
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+        
+        .btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+        
         .btn-secondary {
-            background-color: darkslategray;
+            background: rgba(255, 255, 255, 0.9);
+            color: #4a5568;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            border-color: rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #667eea;
+        }
+        
+        .price-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Lebegő részletek panel */
@@ -353,6 +463,11 @@
                 padding: 0 5px;
             }
             
+            .container {
+                gap: 20px;
+                padding: 10px;
+            }
+            
             .card {
                 width: 100%;
                 max-width: 350px;
@@ -363,18 +478,35 @@
                 height: 200px;
             }
             
-            .card h3 {
-                font-size: 18px;
+            .card-content {
+                padding: 15px;
             }
             
-            .card p {
-                font-size: 14px;
+            .card h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            
+            .card-info p {
+                font-size: 13px;
+                margin: 4px 0;
+            }
+            
+            .card-info strong {
+                min-width: 50px;
+                font-size: 12px;
+            }
+            
+            .price-badge {
+                padding: 4px 8px;
+                font-size: 11px;
+                top: 10px;
+                right: 10px;
             }
             
             .btn {
-                padding: 6px 10px;
+                padding: 10px 12px;
                 font-size: 13px;
-                margin: 4px 4px 0 0;
             }
             
             #popupForm {
@@ -447,29 +579,48 @@
                 min-width: 80px;
             }
             
+            .container {
+                gap: 15px;
+                padding: 5px;
+            }
+            
             .card {
                 max-width: 100%;
-                padding: 8px;
             }
             
             .card img {
                 height: 180px;
             }
             
-            .card h3 {
-                font-size: 16px;
-                margin: 8px 0 4px;
+            .card-content {
+                padding: 12px;
             }
             
-            .card p {
-                font-size: 13px;
+            .card h3 {
+                font-size: 16px;
+                margin: 0 0 8px 0;
+            }
+            
+            .card-info p {
+                font-size: 12px;
                 margin: 3px 0;
             }
             
+            .card-info strong {
+                min-width: 45px;
+                font-size: 11px;
+            }
+            
+            .price-badge {
+                padding: 3px 6px;
+                font-size: 10px;
+                top: 8px;
+                right: 8px;
+            }
+            
             .btn {
-                padding: 5px 8px;
+                padding: 8px 10px;
                 font-size: 12px;
-                margin: 3px 3px 0 0;
             }
             
             #popupForm {
@@ -482,13 +633,13 @@
 
         @media (min-width: 769px) and (max-width: 1024px) {
             .container {
-                gap: 18px;
-                padding: 0 15px;
+                gap: 22px;
+                padding: 15px;
             }
             
             .card {
-                width: calc(50% - 9px);
-                max-width: 320px;
+                width: calc(50% - 11px);
+                max-width: 340px;
             }
             
             .filter-panel {
@@ -499,23 +650,25 @@
         @media (min-width: 1025px) {
             .container {
                 justify-content: flex-start;
-                padding: 0 20px;
+                padding: 20px;
+                gap: 25px;
             }
             
             .card {
-                width: calc(33.333% - 14px);
-                max-width: 300px;
+                width: calc(33.333% - 17px);
+                max-width: 320px;
             }
         }
 
         @media (min-width: 1400px) {
             .container {
                 justify-content: center;
+                gap: 25px;
             }
             
             .card {
-                width: calc(25% - 15px);
-                max-width: 300px;
+                width: calc(25% - 19px);
+                max-width: 320px;
             }
         }
 
@@ -740,13 +893,22 @@ function displayUtazasok(utazasok) {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
-            <img src="kepek/${utazas.boritokep}" alt="borítókép">
-            <h3>${utazas.utazas_elnevezese}</h3>
-            <p><strong>Indulás:</strong> ${utazas.utazas_ideje}</p>
-            <p><strong>Helyszín:</strong> ${utazas.desztinacio}</p>
-            <p><strong>Ár:</strong> ${utazas.ar} Ft</p>
-            <a class="btn" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
-            <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
+            <div class="card-image-container">
+                <img src="kepek/${utazas.boritokep}" alt="borítókép">
+                <div class="price-badge">${parseInt(utazas.ar).toLocaleString()} Ft</div>
+            </div>
+            <div class="card-content">
+                <h3>${utazas.utazas_elnevezese}</h3>
+                <div class="card-info">
+                    <p><strong>📅 Indulás:</strong> ${utazas.utazas_ideje}</p>
+                    <p><strong>🏝️ Helyszín:</strong> ${utazas.desztinacio}</p>
+                    <p><strong>🚌 Indulási hely:</strong> ${utazas.indulasi_helyszin}</p>
+                </div>
+                <div class="card-buttons">
+                    <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">✈️ Érdeklődöm</a>
+                    <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>📋 Részletek</a>
+                </div>
+            </div>
         `;
         container.appendChild(div);
     });
