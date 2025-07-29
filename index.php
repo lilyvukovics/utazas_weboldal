@@ -162,32 +162,48 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
             padding: 40px 30px 50px 30px; /* felül 40px, alul 50px */
-            border-radius: 16px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.25);
             width: 360px;
+            max-width: calc(100vw - 40px);
             z-index: 1000;
             font-family: 'Segoe UI', sans-serif;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         #popupForm h3 {
-            font-size: 20px;
-            color: #333;
+            font-size: 22px;
+            color: #667eea;
             text-align: center;
             margin-top: 0;
             margin-bottom: 10px;
-            padding-top: 10px; /* ÚJ: ad térközt a teteje és a konténer között */
+            padding-top: 10px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(102, 126, 234, 0.1);
         }
 
         #popupForm input[type="text"],
         #popupForm input[type="email"] {
             width: 100%;
-            padding: 10px 12px;
+            box-sizing: border-box;
+            padding: 12px 15px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
             font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        #popupForm input[type="text"]:focus,
+        #popupForm input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            transform: translateY(-1px);
         }
 
         #popupForm button {
@@ -200,26 +216,41 @@
         }
 
         #popupForm .btn {
-            background-color: #00b4d8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             width: 100%;
             margin-bottom: 10px;
-            transition: background-color 0.2s ease-in-out;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
         }
 
         #popupForm .btn:hover {
-            background-color: #0096c7;
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         #popupForm .btn-secondary {
-            background-color: #adb5bd;
-            color: white;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.3);
             width: 100%;
-            margin-bottom: 20px; /* ÚJ: térköz az aljához */
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
         }
 
         #popupForm .btn-secondary:hover {
-            background-color: #6c757d;
+            background: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            color: #5a67d8;
         }
 
         #popupForm p {
@@ -231,10 +262,14 @@
 
         #popup-utazas-nev {
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            color: #0077cc;  /* vagy #333, ha visszafogottabb kell */
+            color: #764ba2;
             margin: 10px 0 20px 0;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         /* Blur háttér overlay */
@@ -495,7 +530,7 @@
             #popupForm {
                 width: calc(100vw - 40px);
                 max-width: 350px;
-                padding: 30px 20px 40px 20px;
+                padding: 25px 20px 35px 20px;
                 margin: 0 20px;
             }
             
@@ -505,13 +540,14 @@
             
             #popupForm input[type="text"],
             #popupForm input[type="email"] {
-                padding: 8px 10px;
+                padding: 10px 12px;
                 font-size: 13px;
                 margin-bottom: 12px;
             }
             
-            #popupForm button {
-                padding: 8px 14px;
+            #popupForm .btn,
+            #popupForm .btn-secondary {
+                padding: 10px 16px;
                 font-size: 13px;
             }
             
@@ -521,8 +557,9 @@
             }
             
             #popup-utazas-nev {
-                font-size: 16px;
+                font-size: 15px;
                 margin: 8px 0 15px 0;
+                padding: 8px 12px;
             }
             
             #detailsPopup {
@@ -606,6 +643,11 @@
                 max-width: none;
                 padding: 20px 15px 30px 15px;
                 margin: 0 10px;
+            }
+            
+            #popup-utazas-nev {
+                font-size: 14px;
+                padding: 6px 10px;
             }
         }
 
