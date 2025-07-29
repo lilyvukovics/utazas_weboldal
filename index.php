@@ -11,39 +11,137 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
+            padding: 20px;
         }
+        
         .card {
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            width: 320px;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+            border: none;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 2px 2px 6px #ccc;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
             position: relative;
-            padding: 10px;
+            padding: 0;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .card-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
         .card img {
             width: 100%;
-            height: 180px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 8px;
+            transition: transform 0.3s ease;
         }
+        
+        .card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
         .card h3 {
-            margin: 10px 0 5px;
+            margin: 0 0 12px 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            line-height: 1.3;
         }
-        .btn {
-            margin: 6px 6px 0 0;
-            display: inline-block;
+        
+        .card-info {
+            margin-bottom: 15px;
+        }
+        
+        .card-info p {
+            margin: 6px 0;
+            font-size: 14px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-info strong {
+            color: #667eea;
+            font-weight: 600;
+            min-width: 60px;
+        }
+        
+        .card-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 12px 0 20px 0;
             padding: 8px 12px;
-            background-color: dodgerblue;
-            color: white;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
         }
+        
+        .btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+        
         .btn-secondary {
-            background-color: darkslategray;
+            background: rgba(255, 255, 255, 0.9);
+            color: #4a5568;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
+        
+        .btn-secondary:hover {
+            background: white;
+            border-color: rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #667eea;
+        }
+        
+
 
         /* Lebegő részletek panel */
         #detailsPopup {
@@ -64,32 +162,48 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
             padding: 40px 30px 50px 30px; /* felül 40px, alul 50px */
-            border-radius: 16px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.25);
             width: 360px;
+            max-width: calc(100vw - 40px);
             z-index: 1000;
             font-family: 'Segoe UI', sans-serif;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         #popupForm h3 {
-            font-size: 20px;
-            color: #333;
+            font-size: 22px;
+            color: #667eea;
             text-align: center;
             margin-top: 0;
             margin-bottom: 10px;
-            padding-top: 10px; /* ÚJ: ad térközt a teteje és a konténer között */
+            padding-top: 10px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(102, 126, 234, 0.1);
         }
 
         #popupForm input[type="text"],
         #popupForm input[type="email"] {
             width: 100%;
-            padding: 10px 12px;
+            box-sizing: border-box;
+            padding: 12px 15px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
             font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        #popupForm input[type="text"]:focus,
+        #popupForm input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            transform: translateY(-1px);
         }
 
         #popupForm button {
@@ -102,26 +216,41 @@
         }
 
         #popupForm .btn {
-            background-color: #00b4d8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             width: 100%;
             margin-bottom: 10px;
-            transition: background-color 0.2s ease-in-out;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
         }
 
         #popupForm .btn:hover {
-            background-color: #0096c7;
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         #popupForm .btn-secondary {
-            background-color: #adb5bd;
-            color: white;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.3);
             width: 100%;
-            margin-bottom: 20px; /* ÚJ: térköz az aljához */
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-weight: 600;
         }
 
         #popupForm .btn-secondary:hover {
-            background-color: #6c757d;
+            background: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            color: #5a67d8;
         }
 
         #popupForm p {
@@ -133,10 +262,14 @@
 
         #popup-utazas-nev {
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            color: #0077cc;  /* vagy #333, ha visszafogottabb kell */
+            color: #764ba2;
             margin: 10px 0 20px 0;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         /* Blur háttér overlay */
@@ -353,6 +486,11 @@
                 padding: 0 5px;
             }
             
+            .container {
+                gap: 20px;
+                padding: 10px;
+            }
+            
             .card {
                 width: 100%;
                 max-width: 350px;
@@ -363,24 +501,36 @@
                 height: 200px;
             }
             
+            .card-content {
+                padding: 15px;
+            }
+            
             .card h3 {
                 font-size: 18px;
+                margin-bottom: 10px;
             }
             
-            .card p {
-                font-size: 14px;
+            .card-info p {
+                font-size: 13px;
+                margin: 4px 0;
             }
+            
+            .card-info strong {
+                min-width: 50px;
+                font-size: 12px;
+            }
+            
+
             
             .btn {
-                padding: 6px 10px;
+                padding: 10px 12px;
                 font-size: 13px;
-                margin: 4px 4px 0 0;
             }
             
             #popupForm {
                 width: calc(100vw - 40px);
                 max-width: 350px;
-                padding: 30px 20px 40px 20px;
+                padding: 25px 20px 35px 20px;
                 margin: 0 20px;
             }
             
@@ -390,13 +540,14 @@
             
             #popupForm input[type="text"],
             #popupForm input[type="email"] {
-                padding: 8px 10px;
+                padding: 10px 12px;
                 font-size: 13px;
                 margin-bottom: 12px;
             }
             
-            #popupForm button {
-                padding: 8px 14px;
+            #popupForm .btn,
+            #popupForm .btn-secondary {
+                padding: 10px 16px;
                 font-size: 13px;
             }
             
@@ -406,8 +557,9 @@
             }
             
             #popup-utazas-nev {
-                font-size: 16px;
+                font-size: 15px;
                 margin: 8px 0 15px 0;
+                padding: 8px 12px;
             }
             
             #detailsPopup {
@@ -447,29 +599,43 @@
                 min-width: 80px;
             }
             
+            .container {
+                gap: 15px;
+                padding: 5px;
+            }
+            
             .card {
                 max-width: 100%;
-                padding: 8px;
             }
             
             .card img {
                 height: 180px;
             }
             
-            .card h3 {
-                font-size: 16px;
-                margin: 8px 0 4px;
+            .card-content {
+                padding: 12px;
             }
             
-            .card p {
-                font-size: 13px;
+            .card h3 {
+                font-size: 16px;
+                margin: 0 0 8px 0;
+            }
+            
+            .card-info p {
+                font-size: 12px;
                 margin: 3px 0;
             }
             
+            .card-info strong {
+                min-width: 45px;
+                font-size: 11px;
+            }
+            
+
+            
             .btn {
-                padding: 5px 8px;
+                padding: 8px 10px;
                 font-size: 12px;
-                margin: 3px 3px 0 0;
             }
             
             #popupForm {
@@ -478,17 +644,22 @@
                 padding: 20px 15px 30px 15px;
                 margin: 0 10px;
             }
+            
+            #popup-utazas-nev {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
             .container {
-                gap: 18px;
-                padding: 0 15px;
+                gap: 22px;
+                padding: 15px;
             }
             
             .card {
-                width: calc(50% - 9px);
-                max-width: 320px;
+                width: calc(50% - 11px);
+                max-width: 340px;
             }
             
             .filter-panel {
@@ -499,23 +670,25 @@
         @media (min-width: 1025px) {
             .container {
                 justify-content: flex-start;
-                padding: 0 20px;
+                padding: 20px;
+                gap: 25px;
             }
             
             .card {
-                width: calc(33.333% - 14px);
-                max-width: 300px;
+                width: calc(33.333% - 17px);
+                max-width: 320px;
             }
         }
 
         @media (min-width: 1400px) {
             .container {
                 justify-content: center;
+                gap: 25px;
             }
             
             .card {
-                width: calc(25% - 15px);
-                max-width: 300px;
+                width: calc(25% - 19px);
+                max-width: 320px;
             }
         }
 
@@ -531,7 +704,7 @@
     <div class="filter-row">
         <div class="filter-group">
             <label for="filter-helyszin">Helyszín</label>
-            <select id="filter-helyszin">
+            <select id="filter-helyszin" onchange="updateIndulasOptions()">
                 <option value="">Minden helyszín</option>
             </select>
         </div>
@@ -651,11 +824,9 @@ window.addEventListener("click", function(e) {
 // Szűrő funkciók
 function populateFilterOptions() {
     const helyszinSet = new Set();
-    const indulasSet = new Set();
     
     allUtazasok.forEach(utazas => {
         if (utazas.desztinacio) helyszinSet.add(utazas.desztinacio);
-        if (utazas.indulasi_helyszin) indulasSet.add(utazas.indulasi_helyszin);
     });
     
     // Helyszín dropdown feltöltése
@@ -665,12 +836,42 @@ function populateFilterOptions() {
         helyszinSelect.innerHTML += `<option value="${helyszin}">${helyszin}</option>`;
     });
     
-    // Indulási helyszín dropdown feltöltése
+    // Indulási helyszín dropdown feltöltése (összes opcióval kezdve)
+    updateIndulasOptions();
+}
+
+function updateIndulasOptions() {
+    const selectedHelyszin = document.getElementById('filter-helyszin').value;
     const indulasSelect = document.getElementById('filter-indulas');
+    const currentIndulasValue = indulasSelect.value; // Jelenlegi kiválasztott érték mentése
+    
+    let availableIndulasok = new Set();
+    
+    if (selectedHelyszin === '') {
+        // Ha nincs helyszín kiválasztva, minden indulási hely elérhető
+        allUtazasok.forEach(utazas => {
+            if (utazas.indulasi_helyszin) availableIndulasok.add(utazas.indulasi_helyszin);
+        });
+    } else {
+        // Ha van kiválasztott helyszín, csak az ahhoz tartozó indulási helyek
+        allUtazasok.forEach(utazas => {
+            if (utazas.desztinacio === selectedHelyszin && utazas.indulasi_helyszin) {
+                availableIndulasok.add(utazas.indulasi_helyszin);
+            }
+        });
+    }
+    
+    // Indulási helyszín dropdown újraépítése
     indulasSelect.innerHTML = '<option value="">Minden indulási hely</option>';
-    [...indulasSet].sort().forEach(indulas => {
-        indulasSelect.innerHTML += `<option value="${indulas}">${indulas}</option>`;
+    [...availableIndulasok].sort().forEach(indulas => {
+        const isSelected = currentIndulasValue === indulas ? 'selected' : '';
+        indulasSelect.innerHTML += `<option value="${indulas}" ${isSelected}>${indulas}</option>`;
     });
+    
+    // Ha a korábban kiválasztott indulási hely már nem elérhető, töröljük a kiválasztást
+    if (currentIndulasValue && !availableIndulasok.has(currentIndulasValue)) {
+        indulasSelect.value = '';
+    }
 }
 
 function applyFilters() {
@@ -695,6 +896,7 @@ function resetFilters() {
     document.getElementById('filter-indulas').value = '';
     document.getElementById('filter-ar-min').value = '';
     document.getElementById('filter-ar-max').value = '';
+    updateIndulasOptions(); // Indulási helyszínek visszaállítása
     displayUtazasok(allUtazasok);
 }
 
@@ -711,13 +913,22 @@ function displayUtazasok(utazasok) {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
-            <img src="kepek/${utazas.boritokep}" alt="borítókép">
-            <h3>${utazas.utazas_elnevezese}</h3>
-            <p><strong>Indulás:</strong> ${utazas.utazas_ideje}</p>
-            <p><strong>Helyszín:</strong> ${utazas.desztinacio}</p>
-            <p><strong>Ár:</strong> ${utazas.ar} Ft</p>
-            <a class="btn" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
-            <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
+            <div class="card-image-container">
+                <img src="kepek/${utazas.boritokep}" alt="borítókép">
+            </div>
+            <div class="card-content">
+                <h3>${utazas.utazas_elnevezese}</h3>
+                <div class="card-info">
+                    <p><strong>📅 Indulás:</strong> ${utazas.utazas_ideje}</p>
+                    <p><strong>🏝️ Helyszín:</strong> ${utazas.desztinacio}</p>
+                    <p><strong>🚌 Indulási hely:</strong> ${utazas.indulasi_helyszin}</p>
+                    <p><strong>💰 Ár:</strong> ${parseInt(utazas.ar).toLocaleString()} Ft</p>
+                </div>
+                <div class="card-buttons">
+                    <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">✈️ Érdeklődöm</a>
+                    <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>📋 Részletek</a>
+                </div>
+            </div>
         `;
         container.appendChild(div);
     });
