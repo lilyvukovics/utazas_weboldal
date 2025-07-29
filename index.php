@@ -141,19 +141,7 @@
             color: #667eea;
         }
         
-        .price-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+
 
         /* Lebegő részletek panel */
         #detailsPopup {
@@ -497,12 +485,7 @@
                 font-size: 12px;
             }
             
-            .price-badge {
-                padding: 4px 8px;
-                font-size: 11px;
-                top: 10px;
-                right: 10px;
-            }
+
             
             .btn {
                 padding: 10px 12px;
@@ -611,12 +594,7 @@
                 font-size: 11px;
             }
             
-            .price-badge {
-                padding: 3px 6px;
-                font-size: 10px;
-                top: 8px;
-                right: 8px;
-            }
+
             
             .btn {
                 padding: 8px 10px;
@@ -895,7 +873,6 @@ function displayUtazasok(utazasok) {
         div.innerHTML = `
             <div class="card-image-container">
                 <img src="kepek/${utazas.boritokep}" alt="borítókép">
-                <div class="price-badge">${parseInt(utazas.ar).toLocaleString()} Ft</div>
             </div>
             <div class="card-content">
                 <h3>${utazas.utazas_elnevezese}</h3>
@@ -903,6 +880,7 @@ function displayUtazasok(utazasok) {
                     <p><strong>📅 Indulás:</strong> ${utazas.utazas_ideje}</p>
                     <p><strong>🏝️ Helyszín:</strong> ${utazas.desztinacio}</p>
                     <p><strong>🚌 Indulási hely:</strong> ${utazas.indulasi_helyszin}</p>
+                    <p><strong>💰 Ár:</strong> ${parseInt(utazas.ar).toLocaleString()} Ft</p>
                 </div>
                 <div class="card-buttons">
                     <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">✈️ Érdeklődöm</a>
