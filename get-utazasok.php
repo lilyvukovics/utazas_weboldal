@@ -31,6 +31,10 @@ $result = $conn->query($sql);
 $utazasok = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Add the borito_kepek folder path to the image filename
+        if (!empty($row['boritokep'])) {
+            $row['boritokep'] = 'borito_kepek/' . $row['boritokep'];
+        }
         $utazasok[] = $row;
     }
 }
