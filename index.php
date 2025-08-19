@@ -78,7 +78,8 @@
         .card-info strong {
             color: #667eea;
             font-weight: 600;
-            min-width: 60px;
+            min-width: 120px;
+            display: inline-block;
         }
         
         .card-price {
@@ -516,8 +517,9 @@
             }
             
             .card-info strong {
-                min-width: 50px;
+                min-width: 100px;
                 font-size: 12px;
+                display: inline-block;
             }
             
 
@@ -627,8 +629,9 @@
             }
             
             .card-info strong {
-                min-width: 45px;
+                min-width: 90px;
                 font-size: 11px;
+                display: inline-block;
             }
             
 
