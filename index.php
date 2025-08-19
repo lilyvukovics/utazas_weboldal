@@ -71,14 +71,14 @@
             font-size: 14px;
             color: #4a5568;
             display: flex;
-            align-items: center;
+            align-items: baseline;
             gap: 8px;
         }
         
         .card-info strong {
             color: #667eea;
             font-weight: 600;
-            min-width: 60px;
+            flex: 0 0 140px;
         }
         
         .card-price {
