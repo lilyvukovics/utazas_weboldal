@@ -18,7 +18,7 @@ $sql = "SELECT
     u.utazas_ideje, 
     u.desztinacio,
     r.ar, 
-    r.boritokep,
+    CONCAT('borito_kepek/', r.boritokep) AS boritokep,
     r.leiras,
     r.indulasi_datum,
     r.visszaindulas_datum,
