@@ -914,7 +914,7 @@ function displayUtazasok(utazasok) {
         div.className = 'card';
         div.innerHTML = `
             <div class="card-image-container">
-                <img src="kepek/${utazas.boritokep}" alt="borítókép">
+                <img src="${utazas.boritokep}" alt="borítókép" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#f0f0f0'; this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:220px;color:#666;\\'>Kép nem található</div>';">
             </div>
             <div class="card-content">
                 <h3>${utazas.utazas_elnevezese}</h3>
