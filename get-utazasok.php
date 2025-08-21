@@ -1,12 +1,13 @@
 <?php
 header('Content-Type: application/json');
 
+$port = 3306;
 $host = 'localhost';
 $db = 'utazast_kezelo';
 $user = 'utazast_kezelo';
 $pass = 'utazast_kezelo1234';
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db, $port);
 if ($conn->connect_error) {
     die(json_encode(['error' => 'Adatbázis kapcsolódási hiba']));
 }
@@ -18,7 +19,7 @@ $sql = "SELECT
     u.utazas_ideje, 
     u.desztinacio,
     r.ar, 
-    CONCAT('borito_kepek/', r.boritokep) AS boritokep,
+    r.boritokep,
     r.leiras,
     r.indulasi_datum,
     r.visszaindulas_datum,
@@ -31,6 +32,10 @@ $result = $conn->query($sql);
 $utazasok = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Add the path prefix in PHP instead of SQL
+        if (!empty($row['boritokep'])) {
+            $row['boritokep'] = 'borito_kepek/' . $row['boritokep'];
+        }
         $utazasok[] = $row;
     }
 }
