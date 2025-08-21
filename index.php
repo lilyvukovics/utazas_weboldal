@@ -900,6 +900,24 @@ function resetFilters() {
     displayUtazasok(allUtazasok);
 }
 
+// Kép útvonal normalizálása (kezeli: teljes URL, gyökérrel kezdődő, vagy fájlnév)
+function resolveImageSrc(boritokep) {
+    if (!boritokep) {
+        return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="220"><rect width="100%" height="100%" fill="%23f0f1f7"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%239aa3b2" font-family="Arial" font-size="24">Nincs kép</text></svg>';
+    }
+    const value = String(boritokep);
+    // Ha teljes URL vagy gyökérrel kezdődik, hagyjuk
+    if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/')) {
+        return value;
+    }
+    // Ha már tartalmaz mappát (pl. borito_kepek/valami.jpg vagy kepek/valami.jpg), hagyjuk
+    if (value.includes('/')) {
+        return value;
+    }
+    // Alapértelmezett mappa
+    return `borito_kepek/${value}`;
+}
+
 function displayUtazasok(utazasok) {
     const container = document.getElementById('utazasok-container');
     container.innerHTML = '';
@@ -914,7 +932,7 @@ function displayUtazasok(utazasok) {
         div.className = 'card';
         div.innerHTML = `
             <div class="card-image-container">
-                <img src="kepek/${utazas.boritokep}" alt="borítókép">
+                <img src="${resolveImageSrc(utazas.boritokep)}" alt="borítókép">
             </div>
             <div class="card-content">
                 <h3>${utazas.utazas_elnevezese}</h3>
