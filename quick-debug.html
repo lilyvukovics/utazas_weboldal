@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Debug</title>
+</head>
+<body>
+
+<h1>Gyors Debug</h1>
+<div id="result"></div>
+
+<script>
+console.log('API hívás indítása...');
+
+fetch('get-utazasok.php')
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        return response.text(); // Először szövegként olvassuk
+    })
+    .then(text => {
+        console.log('Nyers válasz:', text);
+        document.getElementById('result').innerHTML = 
+            '<h2>API Válasz:</h2><pre>' + text + '</pre>';
+        
+        // Próbáljuk JSON-ként értelmezni
+        try {
+            const data = JSON.parse(text);
+            console.log('JSON adat:', data);
+            
+            if (data && data.length > 0) {
+                document.getElementById('result').innerHTML += 
+                    '<h2>Első utazás adatai:</h2>' +
+                    '<p>Név: ' + data[0].utazas_elnevezese + '</p>' +
+                    '<p>Boritokep: "' + data[0].boritokep + '"</p>';
+            }
+        } catch (e) {
+            console.error('JSON parse hiba:', e);
+            document.getElementById('result').innerHTML += 
+                '<p style="color:red;">JSON parse hiba: ' + e.message + '</p>';
+        }
+    })
+    .catch(error => {
+        console.error('Fetch hiba:', error);
+        document.getElementById('result').innerHTML = 
+            '<p style="color:red;">Fetch hiba: ' + error.message + '</p>';
+    });
+</script>
+
+</body>
+</html>

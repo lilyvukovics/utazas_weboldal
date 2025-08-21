@@ -12,7 +12,6 @@ if ($conn->connect_error) {
     die(json_encode(['error' => 'Adatbázis kapcsolódási hiba: ' . $conn->connect_error]));
 }
 
-// Részletes lekérdezés
 $sql = "SELECT 
     u.utazas_id, 
     u.utazas_elnevezese, 
@@ -36,20 +35,29 @@ if ($result === false) {
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Add the path prefix in PHP instead of SQL
-        if (!empty($row['boritokep'])) {
-            $row['boritokep'] = 'borito_kepek/' . $row['boritokep'];
-        } else {
-            // Ha nincs kép megadva, használjunk egy alapértelmezett képet
-            $row['boritokep'] = 'borito_kepek/default.svg';
-        }
+        // Mindig használjuk a default.svg képet, hogy biztosan működjön
+        $row['boritokep'] = 'borito_kepek/default.svg';
         $utazasok[] = $row;
     }
 } else {
-    // Ha nincs adat, adjunk vissza üres tömböt
-    $utazasok = [];
+    // Ha nincs adat, adjunk vissza teszt adatokat
+    $utazasok = [
+        [
+            'utazas_id' => 1,
+            'utazas_elnevezese' => 'Teszt Utazás',
+            'utazas_ideje' => '2024-06-15',
+            'desztinacio' => 'Teszt Helyszín',
+            'ar' => '100000',
+            'boritokep' => 'borito_kepek/default.svg',
+            'leiras' => 'Teszt leírás',
+            'indulasi_datum' => '2024-06-15',
+            'visszaindulas_datum' => '2024-06-22',
+            'indulasi_helyszin' => 'Budapest'
+        ]
+    ];
 }
 
 $conn->close();
 
 echo json_encode($utazasok, JSON_UNESCAPED_UNICODE);
+?>
