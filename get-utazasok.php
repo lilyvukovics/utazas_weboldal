@@ -9,7 +9,7 @@ $pass = 'utazast_kezelo1234';
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
 if ($conn->connect_error) {
-    die(json_encode(['error' => 'Adatbázis kapcsolódási hiba: ' . $conn->connect_error]));
+    die(json_encode(['error' => 'Adatbázis kapcsolódási hiba']));
 }
 
 // Részletes lekérdezés
@@ -30,24 +30,10 @@ INNER JOIN utazas_reszletek r ON u.utazas_id = r.utazas_id";
 $result = $conn->query($sql);
 
 $utazasok = [];
-if ($result === false) {
-    die(json_encode(['error' => 'SQL hiba: ' . $conn->error]));
-}
-
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Add the path prefix in PHP instead of SQL
-        if (!empty($row['boritokep'])) {
-            $row['boritokep'] = 'borito_kepek/' . $row['boritokep'];
-        } else {
-            // Ha nincs kép megadva, használjunk egy alapértelmezett képet
-            $row['boritokep'] = 'borito_kepek/default.svg';
-        }
         $utazasok[] = $row;
     }
-} else {
-    // Ha nincs adat, adjunk vissza üres tömböt
-    $utazasok = [];
 }
 
 $conn->close();
