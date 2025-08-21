@@ -33,7 +33,10 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Add the borito_kepek folder path to the image filename
         if (!empty($row['boritokep'])) {
+            // Debug: log the original and modified path
+            error_log("Original image: " . $row['boritokep']);
             $row['boritokep'] = 'borito_kepek/' . $row['boritokep'];
+            error_log("Modified image path: " . $row['boritokep']);
         }
         $utazasok[] = $row;
     }
