@@ -909,12 +909,16 @@ function displayUtazasok(utazasok) {
         return;
     }
     
-    utazasok.forEach(utazas => {
+    utazasok.forEach((utazas, index) => {
         const div = document.createElement('div');
         div.className = 'card';
         div.innerHTML = `
             <div class="card-image-container">
-                <img src="${utazas.boritokep}" alt="borítókép" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#f0f0f0'; this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:220px;color:#666;\\'>Kép nem található</div>';">
+                <img src="${utazas.boritokep}" alt="borítókép" 
+                     loading="eager" 
+                     onload="this.style.opacity='1'; console.log('Image loaded:', this.src);" 
+                     onerror="console.log('Image failed:', this.src); this.style.display='none'; this.parentElement.style.backgroundColor='#f0f0f0'; this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:220px;color:#666;\\'>Kép nem található</div>';" 
+                     style="opacity:0; transition: opacity 0.3s ease;">
             </div>
             <div class="card-content">
                 <h3>${utazas.utazas_elnevezese}</h3>
@@ -931,6 +935,14 @@ function displayUtazasok(utazasok) {
             </div>
         `;
         container.appendChild(div);
+        
+        // Explicit képbetöltés trigger egy kis késleltetéssel
+        setTimeout(() => {
+            const img = div.querySelector('img');
+            if (img && img.complete && img.naturalHeight !== 0) {
+                img.style.opacity = '1';
+            }
+        }, 50 * index); // Fokozatos betöltés
     });
 }
 
