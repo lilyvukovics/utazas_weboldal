@@ -934,8 +934,8 @@ function displayUtazasok(utazasok) {
     });
 }
 
-// Betöltjük az utazásokat
-fetch('get-utazasok.php')
+// Betöltjük az utazásokat - debug verzió
+fetch('get-utazasok-test.php')
     .then(response => response.json())
     .then(data => {
         allUtazasok = data; // Összes utazás eltárolása

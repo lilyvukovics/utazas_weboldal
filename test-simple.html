@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Image Test</title>
+    <style>
+        .test-section {
+            border: 2px solid #ccc;
+            margin: 20px;
+            padding: 15px;
+        }
+        .success { border-color: green; }
+        .error { border-color: red; }
+        img { 
+            border: 1px solid black; 
+            margin: 5px;
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Step-by-Step Image Loading Test</h1>
+
+<div class="test-section">
+    <h2>Test 1: Direct SVG files</h2>
+    <p>Testing if SVG files load directly:</p>
+    <img src="borito_kepek/paris.svg" alt="Paris SVG" onload="this.parentElement.className='test-section success'" onerror="this.parentElement.className='test-section error'">
+    <img src="borito_kepek/tokyo.svg" alt="Tokyo SVG">
+    <img src="borito_kepek/london.svg" alt="London SVG">
+    <img src="borito_kepek/default.svg" alt="Default SVG">
+</div>
+
+<div class="test-section">
+    <h2>Test 2: Hard-coded JSON data (no database)</h2>
+    <p>Testing with fake data to see if the JavaScript works:</p>
+    <div id="fake-data-test"></div>
+</div>
+
+<div class="test-section">
+    <h2>Test 3: API Response</h2>
+    <p>Testing actual API response:</p>
+    <div id="api-response-test">Loading...</div>
+</div>
+
+<script>
+// Test 2: Hard-coded data
+const fakeData = [
+    {
+        utazas_id: 1,
+        utazas_elnevezese: "Test Paris",
+        boritokep: "borito_kepek/paris.svg"
+    },
+    {
+        utazas_id: 2,
+        utazas_elnevezese: "Test Tokyo", 
+        boritokep: "borito_kepek/tokyo.svg"
+    }
+];
+
+let fakeOutput = '<h3>Fake data cards:</h3>';
+fakeData.forEach(utazas => {
+    fakeOutput += `
+        <div style="border:1px solid #999; margin:10px; padding:10px; width:250px;">
+            <h4>${utazas.utazas_elnevezese}</h4>
+            <p>Image path: ${utazas.boritokep}</p>
+            <img src="${utazas.boritokep}" alt="test image" style="width:100%; height:150px; object-fit:cover;"
+                 onload="console.log('Image loaded:', this.src)" 
+                 onerror="console.log('Image failed:', this.src); this.style.backgroundColor='red';">
+        </div>
+    `;
+});
+document.getElementById('fake-data-test').innerHTML = fakeOutput;
+
+// Test 3: Real API
+fetch('get-utazasok.php')
+    .then(response => {
+        console.log('API Response Status:', response.status);
+        console.log('API Response Headers:', response.headers);
+        return response.text();
+    })
+    .then(text => {
+        console.log('Raw API Response:', text);
+        document.getElementById('api-response-test').innerHTML = `
+            <h3>Raw API Response:</h3>
+            <pre style="background:#f0f0f0; padding:10px; overflow:auto;">${text}</pre>
+        `;
+        
+        try {
+            const data = JSON.parse(text);
+            console.log('Parsed API Data:', data);
+            
+            let apiOutput = '<h3>API data cards:</h3>';
+            if (data && data.length > 0) {
+                data.forEach(utazas => {
+                    apiOutput += `
+                        <div style="border:1px solid #999; margin:10px; padding:10px; width:250px;">
+                            <h4>${utazas.utazas_elnevezese || 'No name'}</h4>
+                            <p>Image path: "${utazas.boritokep || 'No image path'}"</p>
+                            <img src="${utazas.boritokep}" alt="api image" style="width:100%; height:150px; object-fit:cover;"
+                                 onload="console.log('API Image loaded:', this.src)" 
+                                 onerror="console.log('API Image failed:', this.src); this.style.backgroundColor='red'; this.alt='FAILED: ' + this.src;">
+                        </div>
+                    `;
+                });
+            } else {
+                apiOutput += '<p>No data returned from API</p>';
+            }
+            document.getElementById('api-response-test').innerHTML += apiOutput;
+            
+        } catch (e) {
+            console.error('JSON Parse Error:', e);
+            document.getElementById('api-response-test').innerHTML += `<p style="color:red;">JSON Parse Error: ${e.message}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        document.getElementById('api-response-test').innerHTML = `<p style="color:red;">Fetch Error: ${error.message}</p>`;
+    });
+</script>
+
+</body>
+</html>
