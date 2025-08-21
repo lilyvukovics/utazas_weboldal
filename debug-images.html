@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug - Képek ellenőrzése</title>
+    <style>
+        .debug-info {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+
+<h1>Debug: Képek ellenőrzése</h1>
+<div id="debug-output"></div>
+
+<script>
+console.log('Adatok lekérése az API-ból...');
+
+fetch('get-utazasok.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log('API válasz:', data);
+        
+        let output = '<div class="debug-info"><h2>API Válasz:</h2><pre>' + JSON.stringify(data, null, 2) + '</pre></div>';
+        
+        output += '<h2>Képek ellenőrzése:</h2>';
+        
+        data.forEach((utazas, index) => {
+            output += `<div class="debug-info">`;
+            output += `<h3>Utazás ${index + 1}: ${utazas.utazas_elnevezese}</h3>`;
+            output += `<p><strong>Boritokep mező:</strong> "${utazas.boritokep}"</p>`;
+            
+            // Teszteljük a kép betöltését
+            const img = new Image();
+            const imgId = 'img-test-' + index;
+            
+            output += `<p><strong>Teljes útvonal:</strong> ${window.location.origin}/${utazas.boritokep}</p>`;
+            output += `<div id="${imgId}">Kép betöltés tesztelése...</div>`;
+            output += `</div>`;
+            
+            // Aszinkron kép teszt
+            setTimeout(() => {
+                const testDiv = document.getElementById(imgId);
+                img.onload = function() {
+                    testDiv.innerHTML = `<span class="success">✓ Kép sikeresen betöltve</span><br><img src="${utazas.boritokep}" style="max-width:200px;">`;
+                };
+                img.onerror = function() {
+                    testDiv.innerHTML = `<span class="error">✗ Kép nem található: ${utazas.boritokep}</span>`;
+                };
+                img.src = utazas.boritokep;
+            }, 100 * index);
+        });
+        
+        document.getElementById('debug-output').innerHTML = output;
+    })
+    .catch(error => {
+        console.error('Hiba:', error);
+        document.getElementById('debug-output').innerHTML = '<p class="error">API hiba: ' + error.message + '</p>';
+    });
+</script>
+
+</body>
+</html>

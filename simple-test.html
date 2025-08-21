@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Egyszerű Teszt</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+        }
+        .debug {
+            background: #f0f0f0;
+            padding: 5px;
+            margin: 5px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Képek Teszt</h1>
+
+<h2>1. Közvetlen képek tesztelése:</h2>
+<div>
+    <h3>Létező fájlok tesztelése:</h3>
+    <img src="borito_kepek/paris.svg" alt="Paris SVG" style="width:100px; border:1px solid red;">
+    <img src="borito_kepek/tokyo.svg" alt="Tokyo SVG" style="width:100px; border:1px solid red;">
+    <img src="borito_kepek/london.svg" alt="London SVG" style="width:100px; border:1px solid red;">
+    <br>
+    <img src="borito_kepek/paris.jpg" alt="Paris JPG" style="width:100px; border:1px solid blue;">
+    <img src="borito_kepek/tokyo.jpg" alt="Tokyo JPG" style="width:100px; border:1px solid blue;">
+    <img src="borito_kepek/london.jpg" alt="London JPG" style="width:100px; border:1px solid blue;">
+</div>
+
+<h2>2. API-ból származó adatok:</h2>
+<div id="api-test"></div>
+
+<script>
+// Teszteljük az API-t
+fetch('get-utazasok.php')
+    .then(response => response.json())
+    .then(data => {
+        console.log('API adatok:', data);
+        
+        let output = '';
+        data.forEach((utazas, index) => {
+            output += `
+                <div class="card">
+                    <h3>${utazas.utazas_elnevezese}</h3>
+                    <div class="debug">Boritokep: "${utazas.boritokep}"</div>
+                    <img src="${utazas.boritokep}" 
+                         alt="borítókép" 
+                         style="width:100%; max-width:280px; height:150px; object-fit:cover; border:2px solid green;"
+                         onerror="this.style.border='2px solid red'; this.alt='HIBA: ' + this.src;">
+                    <div class="debug">Teljes URL: ${window.location.origin}/${utazas.boritokep}</div>
+                </div>
+            `;
+        });
+        
+        document.getElementById('api-test').innerHTML = output;
+    })
+    .catch(error => {
+        console.error('API hiba:', error);
+        document.getElementById('api-test').innerHTML = '<p style="color:red;">API hiba: ' + error.message + '</p>';
+    });
+</script>
+
+</body>
+</html>

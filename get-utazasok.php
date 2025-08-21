@@ -35,6 +35,9 @@ if ($result->num_rows > 0) {
         // Add the path prefix in PHP instead of SQL
         if (!empty($row['boritokep'])) {
             $row['boritokep'] = 'borito_kepek/' . $row['boritokep'];
+        } else {
+            // Ha nincs kép megadva, használjunk egy alapértelmezett képet
+            $row['boritokep'] = 'borito_kepek/default.svg';
         }
         $utazasok[] = $row;
     }

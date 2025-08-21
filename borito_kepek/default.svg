@@ -1,0 +1,5 @@
+<svg width="320" height="220" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="220" fill="#CCCCCC"/>
+  <text x="160" y="100" font-family="Arial, sans-serif" font-size="16" fill="#666666" text-anchor="middle" dominant-baseline="middle">Nincs kép</text>
+  <text x="160" y="130" font-family="Arial, sans-serif" font-size="14" fill="#666666" text-anchor="middle" dominant-baseline="middle">elérhető</text>
+</svg>
