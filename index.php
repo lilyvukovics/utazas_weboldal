@@ -7,12 +7,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         
+        /* Global overflow and box-sizing fixes */
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
+        }
+        
         body {
             font-family: 'Inter', Arial, sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
         
         .main-title {
@@ -49,7 +61,7 @@
             content: '✈️';
             position: absolute;
             top: -10px;
-            right: -20px;
+            right: 10px;
             font-size: 2rem;
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
             animation: float 3s ease-in-out infinite;
@@ -66,16 +78,23 @@
             min-height: calc(100vh - 200px);
             padding-top: 40px;
             box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
         }
         .container {
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
             padding: 20px;
+            width: 100%;
+            max-width: 100vw;
+            justify-content: center;
         }
         
         .card {
             width: 320px;
+            max-width: calc(100vw - 40px);
             background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
             border: none;
             border-radius: 20px;
@@ -352,7 +371,8 @@
             padding: 30px;
             border-radius: 20px;
             margin: 20px auto 40px auto;
-            max-width: 900px;
+            max-width: calc(100vw - 40px);
+            width: 100%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
@@ -483,7 +503,7 @@
             .main-title::after {
                 font-size: 1.5rem;
                 top: -5px;
-                right: -10px;
+                right: 5px;
             }
             
             .content-wrapper {
@@ -648,7 +668,7 @@
             .main-title::after {
                 font-size: 1.2rem;
                 top: -3px;
-                right: -8px;
+                right: 3px;
             }
             
             .content-wrapper {
@@ -734,28 +754,34 @@
             .container {
                 gap: 22px;
                 padding: 15px;
+                justify-content: center;
+                max-width: 100vw;
             }
             
             .card {
                 width: calc(50% - 11px);
                 max-width: 340px;
+                min-width: 280px;
             }
             
             .filter-panel {
                 padding: 28px;
+                max-width: calc(100vw - 30px);
             }
         }
 
         @media (min-width: 1025px) {
             .container {
-                justify-content: flex-start;
+                justify-content: center;
                 padding: 20px;
                 gap: 25px;
+                max-width: 100vw;
             }
             
             .card {
                 width: calc(33.333% - 17px);
                 max-width: 320px;
+                min-width: 280px;
             }
         }
 
@@ -763,11 +789,13 @@
             .container {
                 justify-content: center;
                 gap: 25px;
+                max-width: 100vw;
             }
             
             .card {
                 width: calc(25% - 19px);
                 max-width: 320px;
+                min-width: 280px;
             }
         }
 
