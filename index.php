@@ -61,7 +61,7 @@
         }
         
         .content-wrapper {
-            background: white;
+            background: #fafbfc;
             border-radius: 30px 30px 0 0;
             min-height: calc(100vh - 200px);
             padding-top: 40px;
