@@ -8,6 +8,7 @@ $user = 'utazast_kezelo';
 $pass = 'utazast_kezelo1234';
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
+$conn->set_charset("utf8");
 if ($conn->connect_error) {
     die(json_encode(['error' => 'Adatbázis kapcsolódási hiba']));
 }
