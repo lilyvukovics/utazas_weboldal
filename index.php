@@ -3,10 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elérhető utazások</title>
+    <title>Travelogue</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .main-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            padding: 60px 20px 40px 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .main-title::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .main-title::after {
+            content: '✈️';
+            position: absolute;
+            top: -10px;
+            right: -20px;
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .content-wrapper {
+            background: #fafbfc;
+            border-radius: 30px 30px 0 0;
+            min-height: calc(100vh - 200px);
+            padding-top: 40px;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
         }
         .container {
             display: flex;
@@ -78,7 +137,8 @@
         .card-info strong {
             color: #667eea;
             font-weight: 600;
-            min-width: 60px;
+            min-width: 120px;
+            display: inline-block;
         }
         
         .card-price {
@@ -415,14 +475,20 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 0 10px;
+            .main-title {
+                font-size: 3rem;
+                padding: 40px 15px 30px 15px;
             }
             
-            h1 {
-                text-align: center;
-                font-size: 28px;
-                margin: 20px 0;
+            .main-title::after {
+                font-size: 1.5rem;
+                top: -5px;
+                right: -10px;
+            }
+            
+            .content-wrapper {
+                border-radius: 25px 25px 0 0;
+                padding-top: 30px;
             }
             
             .filter-panel {
@@ -516,8 +582,9 @@
             }
             
             .card-info strong {
-                min-width: 50px;
+                min-width: 100px;
                 font-size: 12px;
+                display: inline-block;
             }
             
 
@@ -573,9 +640,20 @@
         }
 
         @media (max-width: 480px) {
-            h1 {
-                font-size: 24px;
-                margin: 15px 0;
+            .main-title {
+                font-size: 2.5rem;
+                padding: 30px 10px 25px 10px;
+            }
+            
+            .main-title::after {
+                font-size: 1.2rem;
+                top: -3px;
+                right: -8px;
+            }
+            
+            .content-wrapper {
+                border-radius: 20px 20px 0 0;
+                padding-top: 25px;
             }
             
             .filter-panel {
@@ -627,8 +705,9 @@
             }
             
             .card-info strong {
-                min-width: 45px;
+                min-width: 90px;
                 font-size: 11px;
+                display: inline-block;
             }
             
 
@@ -696,8 +775,9 @@
 </head>
 <body>
 
-<h1>Elérhető utazások</h1>
+<h1 class="main-title">Travelogue</h1>
 
+<div class="content-wrapper">
 <!-- Szűrő panel -->
 <div class="filter-panel">
     <div class="filter-title">Szűrés</div>
@@ -765,6 +845,8 @@
 
 <!-- Lebegő részletek doboz -->
 <div id="detailsPopup"></div>
+
+</div> <!-- End of content-wrapper -->
 
 <script>
 let lastDetailsId = null;
@@ -925,8 +1007,8 @@ function displayUtazasok(utazasok) {
                     <p><strong>💰 Ár:</strong> ${parseInt(utazas.ar).toLocaleString()} Ft</p>
                 </div>
                 <div class="card-buttons">
-                    <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">✈️ Érdeklődöm</a>
-                    <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>📋 Részletek</a>
+                    <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
+                    <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
                 </div>
             </div>
         `;
