@@ -90,6 +90,7 @@
             width: 100%;
             max-width: 100vw;
             justify-content: center;
+            align-items: stretch;
         }
         
         .card {
@@ -146,7 +147,7 @@
         }
         
         .card-info {
-            margin-bottom: 15px;
+            flex-grow: 1;
         }
         
         .card-info p {
