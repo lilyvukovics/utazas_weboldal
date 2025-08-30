@@ -150,12 +150,11 @@
             font-weight: 600;
             color: #2d3748;
             line-height: 1.3;
-            order: 0;
         }
         
         .card-info {
             /* flex-grow removed to eliminate gap between price and buttons */
-            order: 0;
+            margin-bottom: 8px;
         }
         
         .card-info p {
@@ -174,22 +173,11 @@
             display: inline-block;
         }
         
-        .card-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #667eea;
-            margin: 12px 0 8px 0;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-radius: 10px;
-            text-align: center;
-            order: 2;
-        }
+
         
         .card-buttons {
             display: flex;
             gap: 10px;
-            order: 3;
         }
         
         .btn {
