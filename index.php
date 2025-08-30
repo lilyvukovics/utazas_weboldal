@@ -179,7 +179,7 @@
         
         .card-buttons {
             display: flex;
-            gap: 10px;
+            gap: 0;
             margin-top: auto;
         }
         
