@@ -231,7 +231,8 @@
       border-radius: 8px;
       display: none;
       z-index: 999;
-      width: 280px;
+      max-width: min(320px, calc(100vw - 16px));
+      word-break: break-word; 
     }
 
     /* Overlay + popup */
@@ -586,34 +587,78 @@
     }
 
     function closeForm() {
-      document.getElementById('popupForm').style.display = 'none';
-      document.getElementById('overlay').style.display   = 'none';
-      document.body.style.overflow = 'auto';
+        document.getElementById('popupForm').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+
+        // Csak vertikális görgetés vissza, X marad tiltva
+        document.body.style.overflowY = 'auto';
+        document.body.style.overflowX = 'hidden';
+        document.documentElement.style.overflowX = 'hidden'; 
     }
-
     function showDetailsPopup(event, utazas) {
-      const popup = document.getElementById('detailsPopup');
+    const popup = document.getElementById('detailsPopup');
 
-      if (lastDetailsId === utazas.utazas_id) {
-        popup.style.display = 'none';
+    // ha ugyanarra kattint, zárjuk
+    if (lastDetailsId === utazas.utazas_id) {
+        popup.style.display = "none";
         lastDetailsId = null;
         return;
-      }
+    }
 
-      popup.innerHTML = `
+    popup.innerHTML = `
         <strong>Leírás:</strong> ${utazas.leiras}<br>
         <strong>Indulási dátum:</strong> ${utazas.indulasi_datum}<br>
         <strong>Visszaindulás:</strong> ${utazas.visszaindulas_datum}<br>
         <strong>Indulási helyszín:</strong> ${utazas.indulasi_helyszin}
-      `;
+    `;
 
-      const rect = event.target.getBoundingClientRect();
-      popup.style.top  = window.scrollY + rect.bottom + 5 + 'px';
-      popup.style.left = window.scrollX + rect.left  + 'px';
-      popup.style.display = 'block';
+    // először megjelenítjük "láthatatlanul", hogy legyen mérete
+    popup.style.visibility = 'hidden';
+    popup.style.display = 'block';
 
-      lastDetailsId = utazas.utazas_id;
+    const rect = event.target.getBoundingClientRect();
+    const vw   = window.innerWidth;
+    const vh   = window.innerHeight;
+    const sx   = window.scrollX;
+    const sy   = window.scrollY;
+    const pw   = popup.offsetWidth;
+    const ph   = popup.offsetHeight;
+    const gap  = 8; // biztonsági belső margó az ablak széleitől
+
+    // Alap: a gomb alá, bal szélét a gomb baljához igazítva
+    let left = sx + rect.left;
+    let top  = sy + rect.bottom + gap;
+
+    // Ha kilóg jobbra, toljuk be balra
+    const rightEdge = left + pw;
+    const maxRight  = sx + vw - gap;
+    if (rightEdge > maxRight) {
+        left = Math.max(gap + sx, maxRight - pw);
     }
+
+    // Ha túl közel a bal szélhez, clampeljük
+    if (left < sx + gap) {
+        left = sx + gap;
+    }
+
+    // Ha alul kilógna, tegyük a gomb fölé
+    const bottomEdge = top + ph;
+    const maxBottom  = sy + vh - gap;
+    if (bottomEdge > maxBottom) {
+        top = sy + rect.top - ph - gap;
+        // ha így meg felül lógna ki, végső megoldás: ablakon belül clamp
+        if (top < sy + gap) {
+        top = sy + gap;
+        }
+    }
+
+    popup.style.left = `${left}px`;
+    popup.style.top  = `${top}px`;
+    popup.style.visibility = 'visible';
+
+    lastDetailsId = utazas.utazas_id;
+    }
+
 
     window.addEventListener('click', function(e) {
       const popup = document.getElementById('detailsPopup');
