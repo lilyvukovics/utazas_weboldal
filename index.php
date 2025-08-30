@@ -161,6 +161,10 @@
             gap: 8px;
         }
         
+        .card-info p:last-child {
+            margin-bottom: 0;
+        }
+        
         .card-info strong {
             color: #667eea;
             font-weight: 600;
