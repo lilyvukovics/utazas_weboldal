@@ -146,13 +146,8 @@
             line-height: 1.3;
         }
         
-        .card h3::after {
-            content: '';
-            flex-grow: 1;
-        }
-        
         .card-info {
-            /* flex-grow removed to eliminate gap between price and buttons */
+            margin-top: auto;
         }
         
         .card-info p {
