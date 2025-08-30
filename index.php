@@ -147,14 +147,7 @@
         }
         
         .card-info {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .card-info::before {
-            content: '';
-            flex-grow: 1;
+            /* flex-grow removed to eliminate gap between price and buttons */
         }
         
         .card-info p {
@@ -175,6 +168,12 @@
             font-weight: 600;
             min-width: 120px;
             display: inline-block;
+        }
+        
+
+        
+        .card-spacer {
+            flex-grow: 1;
         }
         
         .card-buttons {
@@ -1039,6 +1038,7 @@ function displayUtazasok(utazasok) {
                     <p><strong>🚌 Indulási hely:</strong> ${utazas.indulasi_helyszin}</p>
                     <p><strong>💰 Ár:</strong> ${parseInt(utazas.ar).toLocaleString()} Ft</p>
                 </div>
+                <div class="card-spacer"></div>
                 <div class="card-buttons">
                     <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
                     <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
