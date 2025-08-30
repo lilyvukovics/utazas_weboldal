@@ -90,6 +90,7 @@
             width: 100%;
             max-width: 100vw;
             justify-content: center;
+            align-items: stretch;
         }
         
         .card {
@@ -104,6 +105,8 @@
             padding: 0;
             transition: all 0.3s ease;
             border: 1px solid rgba(102, 126, 234, 0.1);
+            display: flex;
+            flex-direction: column;
         }
         
         .card:hover {
@@ -130,6 +133,9 @@
         
         .card-content {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .card h3 {
@@ -141,7 +147,7 @@
         }
         
         .card-info {
-            margin-bottom: 15px;
+            flex-grow: 1;
         }
         
         .card-info p {
@@ -174,7 +180,7 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: auto;
         }
         
         .btn {
