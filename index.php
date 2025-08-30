@@ -147,11 +147,11 @@
         }
         
         .card-info {
-            flex-grow: 1;
         }
         
         .card-info p {
-            margin: 6px 0;
+            margin: 0;
+            padding: 3px 0;
             font-size: 14px;
             color: #4a5568;
             display: flex;
@@ -166,16 +166,7 @@
             display: inline-block;
         }
         
-        .card-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #667eea;
-            margin: 12px 0 20px 0;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-radius: 10px;
-            text-align: center;
-        }
+
         
         .card-buttons {
             display: flex;
