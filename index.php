@@ -147,7 +147,6 @@
         }
         
         .card-info {
-            flex-grow: 1;
         }
         
         .card-info p {
@@ -172,8 +171,7 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin: 0;
-            padding: 0;
+            margin-top: auto;
         }
         
         .btn {
