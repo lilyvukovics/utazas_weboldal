@@ -147,8 +147,7 @@
         }
         
         .card-info {
-            margin-top: auto;
-            margin-bottom: 0;
+            flex-grow: 1;
         }
         
         .card-info p {
@@ -173,8 +172,8 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 5px;
-            margin-bottom: 0;
+            margin: 0;
+            padding: 0;
         }
         
         .btn {
