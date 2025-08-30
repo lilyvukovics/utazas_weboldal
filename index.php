@@ -59,21 +59,6 @@
       border-radius: 50%;
     }
 
-    .main-title::after {
-      content: '✈️';
-      position: absolute;
-      top: -10px;
-      right: 10px;
-      font-size: 2rem;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,.3));
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-10px); }
-    }
-
     .content-wrapper {
       background: #fafbfc;
       border-radius: 30px 30px 0 0;
@@ -82,7 +67,6 @@
       box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 100vw;
-      overflow-x: hidden;
     }
 
     /* Kártyarács */
@@ -94,7 +78,7 @@
       width: 100%;
       max-width: 100vw;
       align-items: start;       
-      justify-items: strectch;
+      justify-items: stretch;
     }
 
     /* Kártya */
@@ -124,7 +108,7 @@
 
     .card img {
       width: 100%;
-      height: 200px;            /* kisebb kép → alacsonyabb kártya */
+      height: 200px;            
       object-fit: cover;
       transition: transform .3s ease;
     }
@@ -133,12 +117,11 @@
       transform: scale(1.05);
     }
 
-    /* ===== Tartalom – feszesebb belső távok ===== */
     .card-content {
-      padding: 16px;            /* kisebb padding */
+      padding: 16px;            
       display: grid;
-      grid-template-rows: auto 1fr auto; /* cím | info | gombok */
-      row-gap: 10px;            /* feszesebb ritmus */
+      grid-template-rows: auto 1fr auto; 
+      row-gap: 10px;            
       min-height: 0;
     }
 
@@ -544,7 +527,7 @@
     <!-- Jelentkezés popup -->
     <div id="popupForm">
       <h3>Érdeklődés az alábbi utazás iránt:</h3>
-      <div id="popup-utazas-nev" style="font-weight: bold; margin-bottom: 20px;"></div>
+      <div id="popup-utazas-nev"></div>
 
       <form action="jelentkezes.php" method="POST">
         <input type="hidden" name="utazas_id" id="popup-utazas-id"/>
