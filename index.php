@@ -146,6 +146,11 @@
             line-height: 1.3;
         }
         
+        .card h3::after {
+            content: '';
+            flex-grow: 1;
+        }
+        
         .card-info {
             /* flex-grow removed to eliminate gap between price and buttons */
         }
@@ -175,8 +180,7 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: auto;
-            padding-top: 8px;
+            margin-top: 8px;
         }
         
         .btn {
