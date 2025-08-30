@@ -148,6 +148,7 @@
         
         .card-info {
             flex-grow: 1;
+            margin-bottom: 15px;
         }
         
         .card-info p {
@@ -166,11 +167,15 @@
             display: inline-block;
         }
         
+        .card-footer {
+            margin-top: auto;
+        }
+        
         .card-price {
             font-size: 18px;
             font-weight: 700;
             color: #667eea;
-            margin: 12px 0 20px 0;
+            margin: 0 0 12px 0;
             padding: 8px 12px;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
             border-radius: 10px;
@@ -180,7 +185,7 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: auto;
+            margin-top: 0;
         }
         
         .btn {
@@ -1038,11 +1043,13 @@ function displayUtazasok(utazasok) {
                     <p><strong>📅 Indulás:</strong> ${utazas.utazas_ideje}</p>
                     <p><strong>🏝️ Helyszín:</strong> ${utazas.desztinacio}</p>
                     <p><strong>🚌 Indulási hely:</strong> ${utazas.indulasi_helyszin}</p>
-                    <p><strong>💰 Ár:</strong> ${parseInt(utazas.ar).toLocaleString()} Ft</p>
                 </div>
-                <div class="card-buttons">
-                    <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
-                    <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
+                <div class="card-footer">
+                    <div class="card-price">${parseInt(utazas.ar).toLocaleString()} Ft</div>
+                    <div class="card-buttons">
+                        <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
+                        <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
+                    </div>
                 </div>
             </div>
         `;
