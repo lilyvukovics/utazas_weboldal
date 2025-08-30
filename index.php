@@ -178,7 +178,7 @@
             font-size: 18px;
             font-weight: 700;
             color: #667eea;
-            margin: 12px 0 20px 0;
+            margin: 12px 0 8px 0;
             padding: 8px 12px;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
             border-radius: 10px;
@@ -189,7 +189,6 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: auto;
             order: 3;
         }
         
