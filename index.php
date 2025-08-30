@@ -148,19 +148,17 @@
         
         .card-info {
             margin-top: auto;
+            margin-bottom: 0;
         }
         
         .card-info p {
-            margin: 6px 0;
+            margin: 0;
+            padding: 3px 0;
             font-size: 14px;
             color: #4a5568;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        .card-info p:last-child {
-            margin-bottom: 0;
         }
         
         .card-info strong {
@@ -175,7 +173,8 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 8px;
+            margin-top: 5px;
+            margin-bottom: 0;
         }
         
         .btn {
