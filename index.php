@@ -160,7 +160,7 @@
         }
         
         .card-info p:last-child {
-            margin-bottom: 8px;
+            margin-bottom: 0;
         }
         
         .card-info strong {
@@ -172,13 +172,11 @@
         
 
         
-        .card-spacer {
-            flex-grow: 1;
-        }
-        
         .card-buttons {
             display: flex;
             gap: 10px;
+            margin-top: auto;
+            padding-top: 8px;
         }
         
         .btn {
@@ -1038,7 +1036,6 @@ function displayUtazasok(utazasok) {
                     <p><strong>🚌 Indulási hely:</strong> ${utazas.indulasi_helyszin}</p>
                     <p><strong>💰 Ár:</strong> ${parseInt(utazas.ar).toLocaleString()} Ft</p>
                 </div>
-                <div class="card-spacer"></div>
                 <div class="card-buttons">
                     <a class="btn primary" onclick="openForm(${utazas.utazas_id}, '${utazas.utazas_elnevezese.replace(/'/g, "\\'")}')">Érdeklődöm</a>
                     <a class="btn btn-secondary details-btn" onclick='showDetailsPopup(event, ${JSON.stringify(utazas)})'>Részletek</a>
