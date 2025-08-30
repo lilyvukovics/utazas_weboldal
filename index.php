@@ -138,8 +138,6 @@
             height: 100%;
         }
         
-
-        
         .card h3 {
             margin: 0 0 12px 0;
             font-size: 20px;
@@ -149,7 +147,14 @@
         }
         
         .card-info {
-            /* flex-grow removed to eliminate gap between price and buttons */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-info::before {
+            content: '';
+            flex-grow: 1;
         }
         
         .card-info p {
@@ -162,7 +167,7 @@
         }
         
         .card-info p:last-child {
-            margin-bottom: 0;
+            margin-bottom: 8px;
         }
         
         .card-info strong {
@@ -172,12 +177,9 @@
             display: inline-block;
         }
         
-
-        
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: auto;
         }
         
         .btn {
