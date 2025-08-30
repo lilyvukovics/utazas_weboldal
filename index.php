@@ -130,6 +130,13 @@
         
         .card-content {
             padding: 20px;
+            position: relative;
+        }
+        
+        .card-content::before {
+            content: '';
+            display: block;
+            height: 15px;
         }
         
         .card h3 {
@@ -141,7 +148,7 @@
         }
         
         .card-info {
-            margin-bottom: 15px;
+            margin-bottom: 0;
         }
         
         .card-info p {
@@ -174,7 +181,7 @@
         .card-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 0;
         }
         
         .btn {
