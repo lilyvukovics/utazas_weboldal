@@ -532,10 +532,10 @@
       <form action="jelentkezes.php" method="POST">
         <input type="hidden" name="utazas_id" id="popup-utazas-id"/>
 
-        <input type="text"   name="teljes_nev" placeholder="Teljes név" required/>
-        <input type="email"  name="email"      placeholder="Email"     required/>
-        <input type="text"   name="telefon"    placeholder="Telefon"   required/>
-        <input type="text"   name="lakcim"     placeholder="Lakcím"    required/>
+        <input type="text"   name="teljes_nev" placeholder="Teljes név" required oninvalid="this.setCustomValidity('Kérjük, adja meg a teljes nevét!')" oninput="this.setCustomValidity('')"/>
+        <input type="email"  name="email"      placeholder="Email"     required pattern="[^\s@]+@[^\s@]+" oninvalid="this.setCustomValidity('Kérjük, érvényes email címet adjon meg!')" oninput="this.setCustomValidity('')"/>
+        <input type="text"   name="telefon"    placeholder="Telefon"   required oninvalid="this.setCustomValidity('Kérjük, adja meg a telefonszámát!')" oninput="this.setCustomValidity('')"/>
+        <input type="text"   name="lakcim"     placeholder="Lakcím"    required oninvalid="this.setCustomValidity('Kérjük, adja meg a lakcímét!')" oninput="this.setCustomValidity('')"/>
 
         <button type="submit" class="btn">Küldés</button>
         <button type="button" class="btn btn-secondary" onclick="closeForm()">Mégsem</button>
