@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($hianyzo)) {
         $error_message = 'Kérjük, töltse ki az összes mezőt: ' . implode(', ', $hianyzo) . '.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Email formátum ellenőrzése (tartalmaznia kell @ jelet és szabványos formátumot)
-        $error_message = 'Kérjük, érvényes email címet adjon meg.';
+    } elseif (!preg_match('/^[^\s@]+@[^\s@]+$/', $email)) {
+        // Email formátum ellenőrzése: legyen benne '@', előtte-utána legalább 1 karakter, ne legyen benne szóköz
+        $error_message = 'Kérjük, érvényes email címet adjon meg (tartalmazzon @ jelet).';
     } else {
         // Minden rendben, adatbázis művelet
         $stmt = $conn->prepare("INSERT INTO elofoglalas (teljes_nev, telefon, email, lakcim, regisztracio_idopont, utazas_id, allapot)
