@@ -12,26 +12,43 @@ if ($conn->connect_error) {
 $success = false;
 $error_message = "";
 
-if ($_POST) {
-    $utazas_id = $_POST['utazas_id'];
-    $teljes_nev = $_POST['teljes_nev'];
-    $email = $_POST['email'];
-    $telefon = $_POST['telefon'];
-    $lakcim = $_POST['lakcim'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Beérkező adatok normalizálása
+    $utazas_id = isset($_POST['utazas_id']) ? intval($_POST['utazas_id']) : 0;
+    $teljes_nev = isset($_POST['teljes_nev']) ? trim($_POST['teljes_nev']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $telefon = isset($_POST['telefon']) ? trim($_POST['telefon']) : '';
+    $lakcim = isset($_POST['lakcim']) ? trim($_POST['lakcim']) : '';
     $allapot = 'érdeklődik';
     $regisztracio_idopont = date("Y-m-d H:i:s");
 
-    $stmt = $conn->prepare("INSERT INTO elofoglalas (teljes_nev, telefon, email, lakcim, regisztracio_idopont, utazas_id, allapot)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssis", $teljes_nev, $telefon, $email, $lakcim, $regisztracio_idopont, $utazas_id, $allapot);
+    // Kötelező mezők ellenőrzése
+    $hianyzo = [];
+    if (!$utazas_id) { $hianyzo[] = 'Utazás azonosító'; }
+    if ($teljes_nev === '') { $hianyzo[] = 'Teljes név'; }
+    if ($email === '') { $hianyzo[] = 'Email'; }
+    if ($telefon === '') { $hianyzo[] = 'Telefon'; }
+    if ($lakcim === '') { $hianyzo[] = 'Lakcím'; }
 
-    if ($stmt->execute()) {
-        $success = true;
+    if (!empty($hianyzo)) {
+        $error_message = 'Kérjük, töltse ki az összes mezőt: ' . implode(', ', $hianyzo) . '.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Email formátum ellenőrzése (tartalmaznia kell @ jelet és szabványos formátumot)
+        $error_message = 'Kérjük, érvényes email címet adjon meg.';
     } else {
-        $error_message = "Hiba történt: " . $stmt->error;
-    }
+        // Minden rendben, adatbázis művelet
+        $stmt = $conn->prepare("INSERT INTO elofoglalas (teljes_nev, telefon, email, lakcim, regisztracio_idopont, utazas_id, allapot)
+                                VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssis", $teljes_nev, $telefon, $email, $lakcim, $regisztracio_idopont, $utazas_id, $allapot);
 
-    $stmt->close();
+        if ($stmt->execute()) {
+            $success = true;
+        } else {
+            $error_message = 'Hiba történt: ' . $stmt->error;
+        }
+
+        $stmt->close();
+    }
 }
 
 $conn->close();
